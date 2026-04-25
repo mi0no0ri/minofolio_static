@@ -21,16 +21,26 @@ jobs:
             -H "User-Agent: Mozilla/5.0" \
             -o /tmp/note_rss.xml
 
+          # XMLの最初の200行を確認
+          head -50 /tmp/note_rss.xml
+
           python3 - <<'EOF'
           import xml.etree.ElementTree as ET
           import json
 
-          ET.register_namespace('media', 'http://search.yahoo.com/mrss/')
           tree = ET.parse('/tmp/note_rss.xml')
           root = tree.getroot()
           channel = root.find('channel')
-          ns = {'media': 'http://search.yahoo.com/mrss/'}
           items = []
+
+          # 最初のitemのタグを全部出力してデバッグ
+          first_item = channel.find('item')
+          if first_item:
+              print("=== first item tags ===")
+              for child in first_item:
+                  print(f"tag: {child.tag}, attrib: {child.attrib}, text: {child.text[:50] if child.text else ''}")
+
+          ns = {'media': 'http://search.yahoo.com/mrss/'}
 
           for item in channel.findall('item'):
               title       = item.findtext('title', '').strip()
@@ -39,7 +49,6 @@ jobs:
               description = item.findtext('description', '').strip()
               thumbnail   = ''
 
-              # 複数の方法でサムネイルを取得試みる
               thumb_el = item.find('{http://search.yahoo.com/mrss/}thumbnail')
               if thumb_el is not None:
                   thumbnail = thumb_el.get('url', '')
