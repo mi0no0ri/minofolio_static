@@ -25,6 +25,7 @@ jobs:
           import xml.etree.ElementTree as ET
           import json
 
+          ET.register_namespace('media', 'http://search.yahoo.com/mrss/')
           tree = ET.parse('/tmp/note_rss.xml')
           root = tree.getroot()
           channel = root.find('channel')
@@ -37,9 +38,16 @@ jobs:
               pub_date    = item.findtext('pubDate', '').strip()
               description = item.findtext('description', '').strip()
               thumbnail   = ''
-              thumb_el    = item.find('media:thumbnail', ns)
+
+              # 複数の方法でサムネイルを取得試みる
+              thumb_el = item.find('{http://search.yahoo.com/mrss/}thumbnail')
               if thumb_el is not None:
                   thumbnail = thumb_el.get('url', '')
+
+              if not thumbnail:
+                  thumb_el = item.find('media:thumbnail', ns)
+                  if thumb_el is not None:
+                      thumbnail = thumb_el.get('url', '')
 
               items.append({
                   'title'      : title,
@@ -54,6 +62,8 @@ jobs:
               json.dump(items, f, ensure_ascii=False, indent=2)
 
           print(f"{len(items)} 件の記事を保存しました")
+          for item in items[:2]:
+              print(f"thumbnail: {item['thumbnail']}")
           EOF
 
       - name: Commit and push if changed
