@@ -51,12 +51,7 @@ jobs:
 
               thumb_el = item.find('{http://search.yahoo.com/mrss/}thumbnail')
               if thumb_el is not None:
-                  thumbnail = thumb_el.get('url', '')
-
-              if not thumbnail:
-                  thumb_el = item.find('media:thumbnail', ns)
-                  if thumb_el is not None:
-                      thumbnail = thumb_el.get('url', '')
+                  thumbnail = thumb_el.get('url', '') or (thumb_el.text or '').strip()
 
               items.append({
                   'title'      : title,
