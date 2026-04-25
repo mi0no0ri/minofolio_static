@@ -1,0 +1,65 @@
+name: Fetch note RSS
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 毎日UTC0時（日本時間9時）に実行
+  workflow_dispatch:       # 手動実行も可能
+
+jobs:
+  fetch-rss:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch note RSS and save as JSON
+        run: |
+          curl -s "https://note.com/brainy_ixia210/rss" \
+            -H "User-Agent: Mozilla/5.0" \
+            -o /tmp/note_rss.xml
+
+          python3 - <<'EOF'
+          import xml.etree.ElementTree as ET
+          import json
+
+          tree = ET.parse('/tmp/note_rss.xml')
+          root = tree.getroot()
+          channel = root.find('channel')
+          ns = {'media': 'http://search.yahoo.com/mrss/'}
+          items = []
+
+          for item in channel.findall('item'):
+              title       = item.findtext('title', '').strip()
+              link        = item.findtext('link', '').strip()
+              pub_date    = item.findtext('pubDate', '').strip()
+              description = item.findtext('description', '').strip()
+              thumbnail   = ''
+              thumb_el    = item.find('media:thumbnail', ns)
+              if thumb_el is not None:
+                  thumbnail = thumb_el.get('url', '')
+
+              items.append({
+                  'title'      : title,
+                  'link'       : link,
+                  'pubDate'    : pub_date,
+                  'description': description,
+                  'thumbnail'  : thumbnail,
+                  'tag'        : 'note'
+              })
+
+          with open('data/note_posts.json', 'w', encoding='utf-8') as f:
+              json.dump(items, f, ensure_ascii=False, indent=2)
+
+          print(f"{len(items)} 件の記事を保存しました")
+          EOF
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/note_posts.json
+          git diff --staged --quiet || git commit -m "chore: update note posts [skip ci]"
+          git push

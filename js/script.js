@@ -5,27 +5,11 @@ $(function () {
   // ============================================================
   // note RSS 取得（Blogページ）
   // ============================================================
-  const NOTE_USER_ID   = 'brainy_ixia210';
-  const NOTE_RSS_URL   = 'https://note.com/' + NOTE_USER_ID + '/rss';
-  const ALLORIGINS_URL = 'https://api.allorigins.win/get?url=' + encodeURIComponent(NOTE_RSS_URL);
   const BLOG_PER_PAGE  = 10;
 
   let allBlogPosts = [];
   let blogPage     = 1;
   let currentTag   = 'all';
-
-  function parseRSS(xmlStr) {
-    const parser = new DOMParser();
-    const xml    = parser.parseFromString(xmlStr, 'text/xml');
-    return Array.from(xml.querySelectorAll('item')).map(item => ({
-      title      : item.querySelector('title')?.textContent || '',
-      link       : item.querySelector('link')?.textContent || '',
-      pubDate    : item.querySelector('pubDate')?.textContent || '',
-      description: item.querySelector('description')?.textContent || '',
-      thumbnail  : item.querySelector('thumbnail')?.getAttribute('url') || '',
-      tag        : 'note'
-    }));
-  }
 
   function renderBlogPage(page, tag) {
     const $list    = $('#blog_list');
@@ -94,8 +78,6 @@ $(function () {
     if (allBlogPosts.length > 0) {
       renderBlogPage(blogPage, currentTag);
     }
-    // allBlogPostsがまだ空（RSS読み込み中）の場合は
-    // RSS取得完了後に自動でrenderBlogPageが呼ばれる
   });
 
   if ($('#blog_list').length) {
@@ -109,20 +91,16 @@ $(function () {
       renderBlogPage(1, currentTag);
     }
 
-    fetch(ALLORIGINS_URL)
+    // note_posts.jsonを取得してマージ
+    fetch('data/note_posts.json')
       .then(res => res.json())
-      .then(data => {
-        const notePosts = parseRSS(data.contents);
+      .then(notePosts => {
         allBlogPosts = [...notePosts, ...manualPosts]
           .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
         renderBlogPage(blogPage, currentTag);
       })
       .catch(() => {
-        // RSS取得失敗でも手動記事は表示する
-        allBlogPosts = manualPosts;
-        if (allBlogPosts.length > 0) {
-          renderBlogPage(blogPage, currentTag);
-        } else {
+        if (allBlogPosts.length === 0) {
           $('#blog_list').html('<p class="qiita_loading">記事の読み込みに失敗しました。</p>');
         }
       });
