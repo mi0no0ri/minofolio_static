@@ -921,33 +921,27 @@ footer {
     transform: rotate(45deg);
   }
   .navi {
-    transform: translateX(200%);
+    transform: translateX(100%);
     transition: .5s ease-in-out;
     display: block;
     position: fixed;
     z-index: 3;
-    width: 50%;
-    height: 350px;
+    width: 70%;
+    max-width: 300px;
+    min-height: 100vh;
     background-color: #fff;
     top: 0;
+    right: 0;
+    overflow-y: auto;
   }
   .navi ul {
     display: block;
   }
   .navi.active {
-    transform: translateX(100%);
+    transform: translateX(0);
   }
   .menuBar {
-    justify-content: center;
-    text-align: center;
-    margin-right: 0;
-    margin-top: 60px;
-    margin-bottom: 0;
-  }
-  .menuBar li {
-    margin-top: 20px;
-    border-bottom: 0.5px #666 solid;
-    width: 50vw;
+    display: none !important;
   }
   .hamburgerBackGround.active {
     position: fixed;
@@ -967,12 +961,12 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 20px 0 0;
+    margin: 60px 0 0;
     padding: 0;
   }
   .menuBar_sp li {
     border-bottom: 0.5px #666 solid;
-    width: 50vw;
+    width: 100%;
     text-align: center;
     line-height: 50px;
   }
