@@ -649,6 +649,8 @@ footer {
   font-size: 16px;
   cursor: pointer;
   transition: background-color .2s, color .2s;
+  white-space: nowrap;
+  min-width: 100px;
 }
 .works_tab.is_active {
   background-color: gray;
@@ -743,9 +745,21 @@ footer {
 }
 
 @media (max-width: 900px) {
+  .qiita_list,
+  .blog_list {
+    width: 90%;
+    max-width: 100%;
+  }
   .qiita_card {
     width: 100%;
-    max-width: 400px;
+    max-width: 100%;
+  }
+  .blog_card {
+    width: 100%;
+    max-width: 100%;
+  }
+  .workWrap {
+    margin: auto 10px !important;
   }
 }
 .workWrap {
