@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="icon" href="images/favicon.ico">
+  <title>minori_portfolio | Blog</title>
+</head>
+<body>
+  <header>
+    <div class="titleWrap">
+      <div class="site_title fadeInLeft">
+        <a href="index.html">
+          <p>minori no gallery</p>
+        </a>
+      </div>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <nav class="navi">
+      <ul class="menuBar fadeInRight">
+        <li><a href="index.html">Top</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="work.html">Works</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+      <div class="menuFooter">
+        <ul class="menuBar_sp">
+          <li><a href="index.html">Top</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="work.html">Works</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
+        <div class="snsIcon menuSNS">
+          <a href="https://www.instagram.com/minori_no_gallery/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://www.threads.net/@minori_no_gallery" target="_blank" rel="noopener">
+            <i class="fa-brands fa-threads"></i>
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=100089800526899" target="_blank" rel="noopener">
+            <i class="fa-brands fa-facebook"></i>
+          </a>
+          <a href="https://qiita.com/minori_nishizawa" target="_blank" rel="noopener">
+            <img src="images/qiita-icon.png" alt="Qiitaのアイコン" class="fa-qiita">
+          </a>
+        </div>
+        <footer>
+          <small>&copy;2023_minori</small>
+        </footer>
+      </div>
+    </nav>
+    <div class="hamburgerBackGround"></div>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <article class="introduce fadeIn">
+    <h2 class="title">Blog</h2>
+
+    <!-- タグフィルター -->
+    <div class="blog_filter_wrap">
+      <button class="blog_filter is_active" data-tag="all">すべて</button>
+      <button class="blog_filter" data-tag="note">note</button>
+      <button class="blog_filter" data-tag="news">ニュース</button>
+      <button class="blog_filter" data-tag="book">おすすめ本</button>
+    </div>
+
+    <div class="blog_list" id="blog_list">
+      <p class="qiita_loading">読み込み中...</p>
+    </div>
+
+    <div class="return">
+      <a href="index.html">TOP</a>
+    </div>
+  </article>
+
+  <!-- ページトップへ -->
+  <div class="toUp">
+    <a href="#" class="toUpLink"><i class="fa-solid fa-arrow-up"></i></a>
+  </div>
+
+  <!-- SNSアイコン -->
+  <div class="snsIcon">
+    <a href="https://www.instagram.com/minori_no_gallery/" target="_blank" rel="noopener">
+      <i class="fa-brands fa-instagram"></i>
+    </a>
+    <a href="https://www.threads.net/@minori_no_gallery" target="_blank" rel="noopener">
+      <i class="fa-brands fa-threads"></i>
+    </a>
+    <a href="https://www.facebook.com/profile.php?id=100089800526899" target="_blank" rel="noopener">
+      <i class="fa-brands fa-facebook"></i>
+    </a>
+    <a href="https://qiita.com/minori_nishizawa" target="_blank" rel="noopener">
+      <img src="images/qiita-icon.png" alt="Qiitaのアイコン" class="fa-qiita">
+    </a>
+  </div>
+
+  <footer>
+    <small>&copy;2023_minori</small>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+  <script src="data/blog.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
