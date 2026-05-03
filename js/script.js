@@ -1,5 +1,18 @@
 'use strict';
 
+// ============================================================
+// XSSエスケープ
+// ============================================================
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 $(function () {
 
   // ============================================================
@@ -29,21 +42,21 @@ $(function () {
       const date = new Date(post.pubDate || post.date).toLocaleDateString('ja-JP', {
         year: 'numeric', month: 'long', day: 'numeric'
       });
-      const desc      = (post.description || '').replace(/<[^>]+>/g, '').slice(0, 80) + '…';
+      const desc      = escapeHtml((post.description || '').replace(/<[^>]+>/g, '').slice(0, 80)) + '…';
       const thumbHtml = post.thumbnail
-        ? `<img src="${post.thumbnail}" alt="${post.title}" class="blog_card_img">`
+        ? `<img src="${escapeHtml(post.thumbnail)}" alt="${escapeHtml(post.title)}" class="blog_card_img">`
         : '';
-      const tagLabel  = tagLabels[post.tag] || post.tag;
+      const tagLabel  = escapeHtml(tagLabels[post.tag] || post.tag);
 
       html += `
-        <a class="blog_card" href="${post.link}" target="_blank" rel="noopener">
+        <a class="blog_card" href="${escapeHtml(post.link)}" target="_blank" rel="noopener">
           ${thumbHtml}
           <div class="blog_card_body">
             <div class="blog_card_meta">
-              <span class="blog_card_date">${date}</span>
-              <span class="blog_tag_badge blog_tag_${post.tag}">${tagLabel}</span>
+              <span class="blog_card_date">${escapeHtml(date)}</span>
+              <span class="blog_tag_badge blog_tag_${escapeHtml(post.tag)}">${tagLabel}</span>
             </div>
-            <div class="blog_card_title">${post.title}</div>
+            <div class="blog_card_title">${escapeHtml(post.title)}</div>
             <div class="blog_card_desc">${desc}</div>
           </div>
         </a>`;
@@ -210,13 +223,13 @@ $(function () {
         year: 'numeric', month: 'long', day: 'numeric'
       });
       const tags = article.tags
-        .map(t => `<span class="qiita_card_tag">${t.name}</span>`)
+        .map(t => `<span class="qiita_card_tag">${escapeHtml(t.name)}</span>`)
         .join('');
       html += `
-        <a class="qiita_card" href="${article.url}" target="_blank" rel="noopener">
-          <div class="qiita_card_title">${article.title}</div>
+        <a class="qiita_card" href="${escapeHtml(article.url)}" target="_blank" rel="noopener">
+          <div class="qiita_card_title">${escapeHtml(article.title)}</div>
           <div class="qiita_card_tags">${tags}</div>
-          <div class="qiita_card_date">${date}</div>
+          <div class="qiita_card_date">${escapeHtml(date)}</div>
         </a>
       `;
     });
