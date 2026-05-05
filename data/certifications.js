@@ -58,5 +58,6 @@ var CERTIFICATIONS = [
   { "category": "その他", "subcategory": null, "name": "世界遺産検定", "date": "2017-01-10", "passed": true, "color": "purple", "score": null, "grade": 2 },
   { "category": "その他", "subcategory": null, "name": "接客サービスマナー検定", "date": "2017-06-01", "passed": true, "color": "purple", "score": null, "grade": 2 },
   { "category": "その他", "subcategory": null, "name": "秘書検定", "date": "2017-06-18", "passed": true, "color": "purple", "score": null, "grade": 2 },
-  { "category": "その他", "subcategory": null, "name": "日商簿記", "date": "2026-02-27", "passed": true, "color": "purple", "score": null, "grade": 3 }
+  { "category": "その他", "subcategory": null, "name": "日商簿記", "date": "2026-02-27", "passed": true, "color": "purple", "score": null, "grade": 3 },
+  { "category": "その他", "subcategory": null, "name": "コーヒーインストラクター", "date": "2026-03-07", "passed": true, "color": "purple", "score": null, "grade": 3 }
 ];
