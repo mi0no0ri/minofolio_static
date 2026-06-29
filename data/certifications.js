@@ -12,7 +12,7 @@ var CERTIFICATIONS = [
   { "category": "IT系", "subcategory": "IT系国家資格", "name": "プロジェクトマネージャー", "date": null, "passed": false, "color": "blue", "score": null, "grade": null },
   { "category": "IT系", "subcategory": "IT系国家資格", "name": "ITサービスマネージャー", "date": null, "passed": false, "color": "blue", "score": null, "grade": null },
   { "category": "IT系", "subcategory": "GCP", "name": "Cloud Digital Leader", "date": null, "passed": false, "color": "blue", "score": null, "grade": null },
-  { "category": "IT系", "subcategory": "GCP", "name": "Associate Cloud Engineer", "date": null, "passed": true, "color": "blue", "score": null, "grade": null },
+  { "category": "IT系", "subcategory": "GCP", "name": "Associate Cloud Engineer", "date": "2026-05-31", "passed": true, "color": "blue", "score": null, "grade": null },
   { "category": "IT系", "subcategory": "GCP", "name": "Professional Cloud Architect", "date": null, "passed": false, "color": "blue", "score": null, "grade": null },
   { "category": "IT系", "subcategory": "GCP", "name": "Professional Cloud Security Engineer", "date": null, "passed": false, "color": "blue", "score": null, "grade": null },
   { "category": "IT系", "subcategory": "GCP", "name": "Professional Data Engineer", "date": null, "passed": false, "color": "blue", "score": null, "grade": null },
